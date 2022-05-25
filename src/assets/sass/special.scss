@@ -1,0 +1,47 @@
+@import "./static.scss";
+
+.no-devicecode {
+  height: 100%;
+  @include flexs();
+  @include flexOther();
+}
+
+.badge-item .el-badge__content.is-fixed {
+  right: 20px !important;
+}
+
+.alarm-card {
+  width: 400px !important;
+
+  .el-notification__group {
+    width: 90%;
+  }
+
+  .alarm-box {
+    .alarm-box-item {
+      @include flexs();
+      margin-bottom: 15px;
+
+      .alarm-box-item-list {
+        @include flexShrink(0);
+        width: 50%;
+        box-sizing: border-box;
+        @include flexs();
+
+        .alarm-box-item-list-title {
+          font-size: 12px;
+          color: #666;
+        }
+
+        .alarm-box-item-list-content {
+          font-size: 12px;
+          color: #666;
+        }
+      }
+
+      .alarm-box-item-list:first-child {
+        padding-right: 10px;
+      }
+    }
+  }
+}

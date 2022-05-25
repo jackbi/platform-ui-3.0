@@ -1,0 +1,71 @@
+@mixin flexs ($value: center, $valueOther: center) {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: $valueOther;
+  -moz-align-items: $value;
+  -webkit-align-items: $value;
+  align-items: $value;
+}
+
+@mixin flexOther ($values: center, $valuesOther: center) {
+  -webkit-box-pack: $valuesOther;
+  -moz-justify-content: $values;
+  -webkit-justify-content: $values;
+  justify-content: $values;
+}
+
+@mixin flexGrow ($grow: 0) {
+  -webkit-box-flex: $grow;
+  -moz-flex-grow: $grow;
+  -webkit-flex-grow: $grow;
+  flex-grow: $grow;
+}
+
+@mixin flexShrink ($shrink: 0) {
+  -webkit-box-flex: $shrink;
+  -moz-flex-shrink: $shrink;
+  -webkit-flex-shrink: $shrink;
+  flex-shrink: $shrink;
+}
+
+@mixin radius ($radiu: 0) {
+  -webkit-border-radius: $radiu;
+  -moz-border-radius: $radiu;
+  border-radius: $radiu;
+}
+
+@mixin background ($repert: no-repeat, $position: center, $size: cover) {
+  background-repeat: $repert;
+  background-position: $position;
+  background-size: $size;
+}
+
+@mixin shadow ($num1: 0px, $num2: 0px, $num3: 10px, $color: #e5e5e5) {
+  -moz-box-shadow: $num1 $num2 $num3 $color;
+  -webkit-box-shadow: $num1 $num2 $num3 $color;
+  box-shadow: $num1 $num2 $num3 $color;
+}
+
+$pageWidth: 11.8rem;
+
+$green: #45b035;
+$grey: #999999;
+$black: #333333;
+$pink: #F69D9D;
+$wordColor: rgba(0, 0, 0, 0.5);
+$bgColor: #F6FAF7;
+$borderColor: #e5e5e5;
+
+$flexOtherJustifystart: flex-start;
+$flexOtherJustifyend: flex-end;
+$flexOtherJustifycenter: center;
+$flexOtherJustifybetween: space-between;
+$flexOtherJustifyaround: space-around;
+
+$flexOtherPackstart: start;
+$flexOtherPackend: end;
+$flexOtherPackcenter: center;
+$flexOtherPackjustify: justify;
