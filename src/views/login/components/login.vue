@@ -4,7 +4,7 @@
  * @Author: wenbin
  * @Date: 2021-12-15 14:30:33
  * @LastEditors: wenbin
- * @LastEditTime: 2022-05-19 14:15:49
+ * @LastEditTime: 2022-06-06 10:18:54
  * @FilePath: /magus-platform-ui-3.0/src/views/login/components/login.vue
  * Copyright (C) 2021 wenbin. All rights reserved.
 -->
@@ -164,6 +164,7 @@ export default defineComponent({
     const platformStore = usePlatformStore();
     const { GET_MENU_LIST, GET_USER_INFO } = platformStore;
     const router = useRouter();
+    const { systemInfo } = toRefs(props);
     // const route = useRoute();
     const loginForm = ref(null);
     const codeLoginForm = ref(null);
@@ -319,49 +320,29 @@ export default defineComponent({
                 Cookie.set('auth_token', res.data);
                 GET_MENU_LIST(proxy.$magusCloudApi).then(() => {
                   GET_USER_INFO(proxy.$magusCloudApi);
-                  if (props.systemInfo && props.systemInfo.currentMenu) {
-                    const formatData = function (datas) {
-                      datas.forEach((item) => {
-                        if (
-                          item.extend &&
-                          item.extend.appUri &&
-                          item.extend.uri
-                        ) {
-                          item.extend.uri =
-                            item.extend.appUri + item.extend.uri;
-                        }
-                        if (item.children && item.children.length) {
-                          formatData(item.children);
-                        }
-                      });
-                    };
-                    let params = {};
-                    if (
-                      props.systemInfo.currentMenu.extend.params &&
-                      props.systemInfo.currentMenu.extend.params != '{}'
-                    ) {
-                      params = JSON.parse(
-                        props.systemInfo.currentMenu.extend.params
-                      );
-                    }
+                  if (systemInfo.value && systemInfo.value.currentMenu) {
                     router.push({
-                      path: `${props.systemInfo.currentMenu.extend.appUri}${props.systemInfo.currentMenu.extend.uri}`,
-                      query: params
+                      path: systemInfo.value.currentMenu.extend.routerUrl
                     });
-                    formatData(props.systemInfo.topMenu.children);
                     proxy.$magusCloudApi.catchUtil.setLocalItem(
                       'activeMenu',
-                      JSON.stringify(props.systemInfo.topMenu)
+                      JSON.stringify(systemInfo.value.topMenu)
                     );
                     proxy.$magusCloudApi.catchUtil.setLocalItem(
                       'activeSubMenu',
-                      JSON.stringify(props.systemInfo.currentMenu)
+                      JSON.stringify(systemInfo.value.currentMenu)
                     );
                     proxy.resetSetItem(
                       'watchStorage',
-                      JSON.stringify(props.systemInfo.currentMenu)
+                      JSON.stringify(systemInfo.value.currentMenu)
                     );
                   } else {
+                    proxy.$magusCloudApi.catchUtil.removeLocalItem(
+                      'activeMenu'
+                    );
+                    proxy.$magusCloudApi.catchUtil.removeLocalItem(
+                      'activeSubMenu'
+                    );
                     router.push({ path: '/platform/welcome' });
                   }
                 });

@@ -4,7 +4,7 @@
  * @Author: wenbin
  * @Date: 2021-03-31 15:22:50
  * @LastEditors: wenbin
- * @LastEditTime: 2022-05-20 15:25:26
+ * @LastEditTime: 2022-06-06 10:15:01
  * @FilePath: /magus-platform-ui-3.0/src/store/modules/index.js
  * Copyright (C) 2021 wenbin. All rights reserved.
  */
@@ -15,6 +15,7 @@ import userApi from '@/api/users.js';
 import appApi from '@/api/apps';
 import systemApi from '@/api/system';
 import Cookie from 'js-cookie';
+import { formatData } from '@/common/plugin/filters.js';
 
 const CHECK_URL = function (url) {
   // url= 协议://(ftp的登录信息)[IP|域名](:端口号)(/或?请求参数)
@@ -230,6 +231,12 @@ export const usePlatformStore = defineStore({
         magusUI.apiConfig
           .get(systemApi.systemFacade)
           .then((res) => {
+            if (res.topMenu) {
+              formatData(res.topMenu, magusUI);
+            }
+            if (res.currentMenu) {
+              formatData(res.currentMenu, magusUI);
+            }
             const themeColor = res.themeColor ? res.themeColor : 'blue';
             magusUI.catchUtil.setLocalItem('theme', themeColor);
             magusUI.commonUtils.changeTheme(themeColor);

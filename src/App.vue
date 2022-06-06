@@ -4,7 +4,7 @@
  * @Author: wenbin
  * @Date: 2022-04-18 13:49:58
  * @LastEditors: wenbin
- * @LastEditTime: 2022-05-20 16:21:16
+ * @LastEditTime: 2022-06-06 10:31:36
  * @FilePath: /magus-platform-ui-3.0/src/App.vue
  * Copyright (C) 2022 wenbin. All rights reserved.
 -->
@@ -428,8 +428,33 @@ export default defineComponent({
             state.alarmDatas.datas = alarmData;
             resetSetItem('watchParamsSet', JSON.stringify(res));
           });
+      },
+      getCatchRouter() {
+        const activeSubMenu =
+          proxy.$magusCloudApi.catchUtil.getLocalItem('activeSubMenu');
+        const activeMenu =
+          proxy.$magusCloudApi.catchUtil.getLocalItem('activeMenu');
+        if (activeSubMenu) {
+          let routerData = JSON.parse(activeSubMenu);
+          const {
+            extend: { routerUrl }
+          } = routerData;
+          if (window.location.pathname.indexOf(routerUrl) == -1) {
+            router.push({ path: routerUrl });
+          }
+        } else if (activeMenu) {
+          let activeMenuData = JSON.parse(activeMenu);
+          const {
+            extend: { routerUrl }
+          } = activeMenuData;
+          if (routerUrl && window.location.pathname.indexOf(routerUrl) == -1) {
+            router.push({ path: routerUrl });
+          }
+        }
       }
     };
+
+    methods.getCatchRouter();
 
     // 事件监听
     watch(

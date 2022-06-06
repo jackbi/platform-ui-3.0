@@ -4,7 +4,7 @@
  * @Author: wenbin
  * @Date: 2022-04-18 13:49:58
  * @LastEditors: wenbin
- * @LastEditTime: 2022-05-12 17:28:06
+ * @LastEditTime: 2022-06-06 10:31:59
  * @FilePath: /magus-platform-ui-3.0/src/main.js
  * Copyright (C) 2022 wenbin. All rights reserved.
  */
